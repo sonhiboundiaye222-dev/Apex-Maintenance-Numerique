@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Maintenance Numérique & Mécanique</title>
+    <!-- Polices et Icônes -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Style CSS intégré -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* En-tête / Navigation */
+        header {
+            background: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .logo span {
+            color: #0284c7;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.btn-nav {
+            color: #0284c7;
+        }
+
+        .btn-nav {
+            background: #0284c7;
+            color: #fff !important;
+            padding: 8px 18px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn-nav:hover {
+            background: #0369a1;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-content h1 span {
+            color: #38bdf8;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            color: #cbd5e1;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #0284c7;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369a1;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #0f172a;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 10% 80px 10%;
+            text-align: center;
+        }
+
+        .services h2, .pricing h2, .about h2, .contact h2, .videos-section h2 {
+            font-size: 2.2rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            margin-bottom: 50px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .service-card i:not(.click-more i) {
+            font-size: 2.5rem;
+            color: #0284c7;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .service-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .click-more {
+            color: #0284c7;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Modal Details */
+        #details-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .details-content {
+            background: white;
+            width: 100%;
+            max-width: 700px;
+            padding: 40px;
+            border-radius: 10px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .detail-box {
+            display: none;
+        }
+
+        .detail-box h2 {
+            margin-bottom: 15px;
+            color: #1e293b;
+        }
+
+        .detail-box img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .detail-box p {
+            color: #475569;
+            margin-bottom: 15px;
+        }
+
+        .detail-box ul {
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .detail-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Section Vidéos */
+        .videos-section {
+            padding: 80px 10%;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .video-card video, .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: none;
+            object-fit: cover;
+        }
+
+        .video-card h4 {
+            margin-top: 15px;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        /* Section Publicité / Annonces */
+        .ads-section {
+            padding: 60px 10%;
+            background: #f4f6f9;
+            text-align: center;
+        }
+
+        .ads-banner {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .ads-badge {
+            background: #0284c7;
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .ads-banner h4 {
+            font-size: 1.8rem;
+            color: #38bdf8;
+        }
+
+        .ads-banner p {
+            color: #cbd5e1;
+            max-width: 600px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 10%;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 40px 30px;
+            border-radius: 10px;
+            position: relative;
+            text-align: left;
+        }
+
+        .pricing-card.popular {
+            border: 2px solid #0284c7;
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: 25px;
+            background: #0284c7;
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.4rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0284c7;
+            margin-bottom: 25px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 12px;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features i {
+            color: #10b981;
+        }
+
+        .pricing-card .btn {
+            display: block;
+            text-align: center;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 10%;
+            background: #f4f6f9;
+        }
+
+        .about-text h2 span {
+            color: #0284c7;
+        }
+
+        .about-text p {
+            color: #475569;
+            margin-bottom: 20px;
+        }
+
+        .about-text ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .about-text li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            color: #1e293b;
+        }
+
+        .about-text i {
+            color: #0284c7;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 10%;
+            background: #ffffff;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: #0284c7;
+            background: #e0f2fe;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .info-item h4 {
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .info-item p {
+            color: #64748b;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #0284c7;
+        }
+
+        .contact-form button {
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            nav {
+                position: absolute;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+            }
+            nav.active {
+                left: 0;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- En-tête / Navigation -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-gears"></i> Apex <span>Maintenance & Tech</span>
+        </div>
+        <nav id="navbar">
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services & Détails</a></li>
+                <li><a href="#videos">Vidéos</a></li>
+                <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#apropos">À Propos</a></li>
+                <li><a href="#contact" class="btn-nav">Contactez-nous</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Section Accueil (Hero) -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>L'Alliance de la <span>Mécanique</span> et du <span>Numérique</span></h1>
+            <p>De la maintenance industrielle et des diagnostics automobiles aux systèmes informatiques : profitez d'une expertise technique globale pour vos équipements.</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">Demander un devis</a>
+                <a href="#services" class="btn btn-secondary">Découvrir nos services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Services -->
+    <section id="services" class="services">
+        <h2>Nos Domaines d'Intervention</h2>
+        <p class="section-subtitle">Cliquez sur un domaine pour découvrir les détails complets et nos illustrations techniques.</p>
+        
+        <div class="services-grid">
+            <div class="service-card" onclick="openDetails('info-details')">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>Informatique & Réseaux</h3>
+                <p>Maintenance de PC, éradication de virus, récupération de données, installation de réseaux Wi-Fi et optimisation de parcs informatiques.</p>
+                <span class="click-more"><i class="fa-solid fa-arrow-right"></i> Voir les détails & illustrations</span>
+            </div>
+
+            <div class="service-card" onclick="openDetails('auto-details')">
+                <i class="fa-solid fa-car-side"></i>
+                <h3>Diagnostics Automobile</h3>
+                <p>Recherche de pannes électroniques et mécaniques sur véhicules, analyse des codes défauts et conseils de réparation précis.</p>
+                <span class="click-more"><i class="fa-solid fa-arrow-right"></i> Voir les détails & illustrations</span>
+            </div>
+
+            <div class="service-card" onclick="openDetails('ind-details')">
+                <i class="fa-solid fa-industry"></i>
+                <h3>Mécanique Industrielle</h3>
+                <p>Maintenance préventive et curative de machines industrielles, analyse de dysfonctionnements mécaniques et suivi technique.</p>
+                <span class="click-more"><i class="fa-solid fa-arrow-right"></i> Voir les détails & illustrations</span>
+            </div>
+
+            <div class="service-card" onclick="openDetails('dep-details')">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Dépannage & Réparation</h3>
+                <p>Une approche méthodique appliquée au diagnostic rigoureux de tout type de matériel ou machine.</p>
+                <span class="click-more"><i class="fa-solid fa-arrow-right"></i> Voir les détails & illustrations</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fenêtre modale des détails -->
+    <div id="details-container" class="details-section">
+        <div class="details-content">
+            <button class="close-btn" onclick="closeDetails()">&times;</button>
+
+            <div id="info-details" class="detail-box">
+                <h2>Expertise : Informatique & Réseaux</h2>
+                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=800&q=80" alt="Maintenance Informatique">
+                <p>Nous prenons en charge la santé globale de vos équipements informatiques, qu'il s'agisse d'un ordinateur personnel ou d'un parc complet d'entreprise.</p>
+                <ul>
+                    <li><strong>Nettoyage et Dépoussiérage :</strong> Prévention des surchauffes matérielles.</li>
+                    <li><strong>Sécurité Avancée :</strong> Suppression des logiciels malveillants et installation d'antivirus robustes.</li>
+                    <li><strong>Récupération de Données :</strong> Sauvegarde et restauration de fichiers critiques.</li>
+                </ul>
+            </div>
+
+            <div id="auto-details" class="detail-box">
+                <h2>Expertise : Diagnostics Automobile</h2>
+                <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80" alt="Diagnostic Automobile">
+                <p>Grâce à notre solide expérience en mécanique, nous analysons avec précision les pannes électroniques et mécaniques de votre véhicule.</p>
+                <ul>
+                    <li><strong>Passage à la Valise Diagnostic :</strong> Lecture et effacement des codes défauts du calculateur.</li>
+                    <li><strong>Recherche de Pannes complexes :</strong> Problèmes de démarrage ou de capteurs électroniques.</li>
+                </ul>
+            </div>
+
+            <div id="ind-details" class="detail-box">
+                <h2>Expertise : Mécanique Industrielle</h2>
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" alt="Mécanique Industrielle">
+                <p>L'entretien des machines de production est crucial pour éviter l'arrêt de vos activités industrielles.</p>
+                <ul>
+                    <li><strong>Maintenance Préventive :</strong> Visites régulières, graissage, vérification de l'usure.</li>
+                    <li><strong>Maintenance Curative :</strong> Intervention rapide en cas de panne sur une ligne de production.</li>
+                </ul>
+            </div>
+
+            <div id="dep-details" class="detail-box">
+                <h2>Expertise : Dépannage & Méthodologie</h2>
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Méthodologie">
+                <p>La force d'Apex repose sur une méthode de travail rigoureuse axée sur l'analyse technique.</p>
+                <ul>
+                    <li><strong>Démarche Analytique :</strong> Isoler le problème étape par étape.</li>
+                    <li><strong>Polyvalence :</strong> Intervention sur de la mécanique lourde ou de la micro-électronique.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Vidéos / Démonstrations -->
+    <section id="videos" class="videos-section">
+        <h2>Démonstrations & Vidéos Techniques</h2>
+        <p class="section-subtitle">Découvrez nos interventions et nos tutoriels en action.</p>
+        
+        <div class="videos-grid">
+            <div class="video-card">
+                <video controls>
+                    <source src="ma-video.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+                <h4>Diagnostic en direct</h4>
+            </div>
+
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/TON_CODE_YOUTUBE" title="Tutoriel Apex" allowfullscreen></iframe>
+                <h4>Tutoriel & Présentation</h4>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Publicité / Espace Annonces -->
+    <section class="ads-section">
+        <div class="ads-banner">
+            <span class="ads-badge"><i class="fa-solid fa-bullhorn"></i> Offre & Annonce</span>
+            <h4>Besoin d'un design pro ou d'un flyer pour votre marque ?</h4>
+            <p>Profitez de nos services de création graphique et visuelle pour propulser vos projets à Dakar !</p>
+            <a href="#contact" class="btn btn-primary" style="margin-top: 10px;">Contactez-nous</a>
+        </div>
+    </section>
+
+    <!-- Section Tarifs Précisée -->
+    <section id="tarifs" class="pricing">
+        <h2>Nos Forfaits & Tarifs</h2>
+        <p class="section-subtitle">Des prix transparents et adaptés à vos besoins techniques.</p>
+        
+        <div class="pricing-grid">
+            <!-- Carte 1 -->
+            <div class="pricing-card">
+                <h3>Essentiel / Diagnostic</h3>
+                <p class="price">25 000 CFA</p>
+                <ul class="pricing-features">
+                    <li><i class="fa-solid fa-check"></i> Diagnostic complet et repérage de panne</li>
+                    <li><i class="fa-solid fa-check"></i> Nettoyage du système ou de l'équipement</li>
+                    <li><i class="fa-solid fa-check"></i> Rapport de diagnostic détaillé</li>
+                </ul>
+                <a href="#contact" class="btn btn-secondary" style="border-color: #0284c7; color: #0284c7;">Choisir</a>
+            </div>
+
+            <!-- Carte 2 : Populaire -->
+            <div class="pricing-card popular">
+                <span class="badge">Populaire</span>
+                <h3>Intervention Pro</h3>
+                <p class="price">30 000 CFA</p>
+                <ul class="pricing-features">
+                    <li><i class="fa-solid fa-check"></i> Tout du forfait Essentiel inclus</li>
+                    <li><i class="fa-solid fa-check"></i> Réparation & éradication de virus/bugs</li>
+                    <li><i class="fa-solid fa-check"></i> Récupération de données basique</li>
+                    <li><i class="fa-solid fa-check"></i> Support technique prioritaire</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Choisir</a>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="pricing-card">
+                <h3>Industrie & Entreprise</h3>
+                <p class="price">Sur Devis</p>
+                <ul class="pricing-features">
+                    <li><i class="fa-solid fa-check"></i> Audit complet des machines ou du parc</li>
+                    <li><i class="fa-solid fa-check"></i> Maintenance préventive et curative</li>
+                    <li><i class="fa-solid fa-check"></i> Contrat de suivi sur-mesure</li>
+                </ul>
+                <a href="#contact" class="btn btn-secondary" style="border-color: #0284c7; color: #0284c7;">Nous consulter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À Propos -->
+    <section id="apropos" class="about">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>Mon Parcours : De la <span>Mécanique</span> au <span>Numérique</span></h2>
+                <p>Fort d'une solide expérience pratique dans le domaine de la mécanique, j'ai développé au fil des années un esprit rigoureux et une parfaite maîtrise de l'analyse et du diagnostic de pannes complexes.</p>
+                <p>Aujourd'hui, j'associe cette culture de la mécanique industrielle et automobile à une maîtrise approfondie de l'informatique pour comprendre vos équipements sous tous leurs angles.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Expérience confirmée en mécanique et maintenance</li>
+                    <li><i class="fa-solid fa-check"></i> Expert en diagnostics (Machines, Auto, Ordinateurs)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="contact">
+        <h2>Contactez Nos Experts</h2>
+        <p class="section-subtitle">Besoin d'un diagnostic ou d'un dépannage ? Écrivez-nous.</p>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>Téléphone</h4>
+                        <p>+221 78 465 27 71</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>sonhiboundiaye222@gmail.com</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>Localisation</h4>
+                        <p>Dakar, Sénégal</p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" action="https://formspree.io/f/xgavelbj" method="POST">
+                <input type="text" name="nom" placeholder="Votre Nom complet" required>
+                <input type="email" name="email" placeholder="Votre Adresse Email" required>
+                <textarea name="message" rows="5" placeholder="Décrivez votre problème ou besoin..." required></textarea>
+                <button type="submit" class="btn btn-primary">Envoyer le message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Apex Maintenance & Tech. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.querySelector('nav');
+
+        mobileMenu.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+            });
+        });
+
+        function openDetails(detailId) {
+            const container = document.getElementById('details-container');
+            const boxes = document.querySelectorAll('.detail-box');
+            boxes.forEach(box => box.style.display = 'none');
+            document.getElementById(detailId).style.display = 'block';
+            container.style.display = 'flex';
+        }
+
+        function closeDetails() {
+            document.getElementById('details-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

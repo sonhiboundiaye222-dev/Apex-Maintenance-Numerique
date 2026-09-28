@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex Maintenance Numérique & Mécanique</title>
+    <title>Apex Maintenance Numérique</title>
     <!-- Polices et Icônes -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Style CSS intégré -->
     <style>
+        :root {
+            --primary: #1e293b;
+            --accent: #0284c7;
+            --accent-dark: #0369a1;
+            --text-color: #475569;
+            --bg-light: #f4f6f9;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -19,14 +28,14 @@
         }
 
         body {
-            background-color: #f4f6f9;
+            background-color: var(--bg-light);
             color: #333;
             line-height: 1.6;
         }
 
         /* En-tête / Navigation */
         header {
-            background: #ffffff;
+            background: var(--white);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -41,41 +50,42 @@
         .logo {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1e293b;
+            color: var(--primary);
         }
 
         .logo span {
-            color: #0284c7;
+            color: var(--accent);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 20px;
             align-items: center;
         }
 
         nav ul li a {
             text-decoration: none;
-            color: #475569;
+            color: var(--text-color);
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 0.95rem;
         }
 
         nav ul li a:hover, nav ul li a.btn-nav {
-            color: #0284c7;
+            color: var(--accent);
         }
 
         .btn-nav {
-            background: #0284c7;
-            color: #fff !important;
+            background: var(--accent);
+            color: var(--white) !important;
             padding: 8px 18px;
             border-radius: 5px;
             transition: background 0.3s;
         }
 
         .btn-nav:hover {
-            background: #0369a1;
+            background: var(--accent-dark);
         }
 
         .menu-toggle {
@@ -92,14 +102,20 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
+            color: var(--white);
             padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
         }
 
         .hero-content h1 {
             font-size: 2.8rem;
             margin-bottom: 20px;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .hero-content h1 span {
@@ -111,6 +127,7 @@
             max-width: 700px;
             margin: 0 auto 30px auto;
             color: #cbd5e1;
+            line-height: 1.6;
         }
 
         .hero-buttons {
@@ -125,15 +142,18 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            display: inline-block;
         }
 
         .btn-primary {
-            background: #0284c7;
+            background: var(--accent);
             color: white;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary:hover {
-            background: #0369a1;
+            background: var(--accent-dark);
         }
 
         .btn-secondary {
@@ -144,26 +164,28 @@
 
         .btn-secondary:hover {
             background: white;
-            color: #0f172a;
+            color: var(--primary);
         }
 
-        /* Services Section */
-        .services {
-            padding: 100px 10% 80px 10%;
-            text-align: center;
+        /* Sections Générales */
+        .services, .videos-section, .pricing, .payment-section, .discussions-section, .about, .contact {
+            padding: 90px 10%;
         }
 
-        .services h2, .pricing h2, .about h2, .contact h2, .videos-section h2 {
+        h2 {
             font-size: 2.2rem;
-            color: #1e293b;
+            color: var(--primary);
             margin-bottom: 10px;
+            text-align: center;
         }
 
         .section-subtitle {
             color: #64748b;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
+        /* Services Section */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -171,7 +193,7 @@
         }
 
         .service-card {
-            background: white;
+            background: var(--white);
             padding: 35px 25px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -187,24 +209,24 @@
 
         .service-card i:not(.click-more i) {
             font-size: 2.5rem;
-            color: #0284c7;
+            color: var(--accent);
             margin-bottom: 20px;
         }
 
         .service-card h3 {
             font-size: 1.3rem;
             margin-bottom: 15px;
-            color: #1e293b;
+            color: var(--primary);
         }
 
         .service-card p {
-            color: #64748b;
+            color: var(--text-color);
             font-size: 0.95rem;
             margin-bottom: 20px;
         }
 
         .click-more {
-            color: #0284c7;
+            color: var(--accent);
             font-weight: 600;
             font-size: 0.9rem;
             display: flex;
@@ -212,8 +234,8 @@
             gap: 8px;
         }
 
-        /* Modal Details */
-        #details-container {
+        /* Fenêtres Modales Globales */
+        .modal-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -227,15 +249,17 @@
             padding: 20px;
         }
 
-        .details-content {
-            background: white;
+        .modal-content {
+            background: var(--white);
             width: 100%;
-            max-width: 700px;
+            max-width: 600px;
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 12px;
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .close-btn {
@@ -253,27 +277,28 @@
             display: none;
         }
 
-        .detail-box h2 {
+        .detail-box h2, .modal-body-content h2 {
             margin-bottom: 15px;
-            color: #1e293b;
+            color: var(--primary);
+            text-align: left;
         }
 
         .detail-box img {
             width: 100%;
-            height: 250px;
+            height: 220px;
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 20px;
         }
 
-        .detail-box p {
-            color: #475569;
+        .detail-box p, .modal-body-content p {
+            color: var(--text-color);
             margin-bottom: 15px;
         }
 
         .detail-box ul {
             padding-left: 20px;
-            color: #475569;
+            color: var(--text-color);
         }
 
         .detail-box li {
@@ -282,8 +307,7 @@
 
         /* Section Vidéos */
         .videos-section {
-            padding: 80px 10%;
-            background: #ffffff;
+            background: var(--white);
             text-align: center;
         }
 
@@ -314,14 +338,155 @@
 
         .video-card h4 {
             margin-top: 15px;
-            color: #1e293b;
+            color: var(--primary);
             font-size: 1.1rem;
         }
 
-        /* Section Publicité / Annonces */
+        /* Section Tarifs */
+        .pricing {
+            background: var(--bg-light);
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            padding: 40px 30px;
+            border-radius: 10px;
+            position: relative;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: 25px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 25px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 12px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features i {
+            color: #10b981;
+        }
+
+        /* Section Paiement */
+        .payment-section {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .payment-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 35px 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: transform 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15);
+        }
+
+        .payment-card i {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        .payment-card h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .payment-card p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .modal-body-content .pay-info-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .modal-body-content input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .modal-body-content input:focus {
+            border-color: var(--accent);
+        }
+
+        /* Section Publicité */
         .ads-section {
-            padding: 60px 10%;
-            background: #f4f6f9;
+            padding: 50px 10%;
+            background: var(--bg-light);
             text-align: center;
         }
 
@@ -337,11 +502,10 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
-            text-align: center;
         }
 
         .ads-badge {
-            background: #0284c7;
+            background: var(--accent);
             color: white;
             padding: 4px 12px;
             font-size: 0.8rem;
@@ -359,94 +523,122 @@
             max-width: 600px;
         }
 
-        /* Pricing Section */
-        .pricing {
-            padding: 80px 10%;
-            background: #ffffff;
+        /* Section Discussions */
+        .discussions-section {
+            background-color: var(--bg-light);
             text-align: center;
         }
 
-        .pricing-grid {
+        .discussions-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .pricing-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 40px 30px;
-            border-radius: 10px;
-            position: relative;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
             text-align: left;
         }
 
-        .pricing-card.popular {
-            border: 2px solid #0284c7;
-            background: #fff;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.1);
+        .discussion-form-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            height: fit-content;
         }
 
-        .badge {
-            position: absolute;
-            top: -12px;
-            right: 25px;
-            background: #0284c7;
-            color: white;
-            padding: 4px 12px;
-            font-size: 0.8rem;
-            border-radius: 20px;
-            font-weight: 600;
+        .discussion-form-box h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
         }
 
-        .pricing-card h3 {
-            font-size: 1.4rem;
-            color: #1e293b;
+        .discussion-form-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .discussion-form-box input, 
+        .discussion-form-box textarea {
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .discussions-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .discussion-card {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            padding: 20px 25px;
+            border-radius: 10px;
+        }
+
+        .discussion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 10px;
+            font-size: 0.9rem;
         }
 
-        .price {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #0284c7;
-            margin-bottom: 25px;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .pricing-features li {
-            margin-bottom: 12px;
-            color: #475569;
+        .discussion-header .author {
+            font-weight: 600;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .pricing-features i {
-            color: #10b981;
+        .discussion-header .date {
+            color: #64748b;
+            font-size: 0.8rem;
         }
 
-        .pricing-card .btn {
-            display: block;
-            text-align: center;
+        .discussion-text {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
         }
 
-        /* About Section */
+        .discussion-replies {
+            border-left: 3px solid var(--accent);
+            background: #e0f2fe;
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 10px;
+        }
+
+        .reply-item .reply-author {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--accent-dark);
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+
+        .reply-item p {
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        /* Section À Propos */
         .about {
-            padding: 100px 10%;
-            background: #f4f6f9;
+            background: var(--white);
         }
 
         .about-text h2 span {
-            color: #0284c7;
+            color: var(--accent);
         }
 
         .about-text p {
-            color: #475569;
+            color: var(--text-color);
             margin-bottom: 20px;
         }
 
@@ -461,17 +653,16 @@
             align-items: center;
             gap: 10px;
             font-weight: 500;
-            color: #1e293b;
+            color: var(--primary);
         }
 
         .about-text i {
-            color: #0284c7;
+            color: var(--accent);
         }
 
-        /* Contact Section */
+        /* Section Contact */
         .contact {
-            padding: 100px 10%;
-            background: #ffffff;
+            background: var(--bg-light);
         }
 
         .contact-container {
@@ -495,14 +686,14 @@
 
         .info-item i {
             font-size: 1.5rem;
-            color: #0284c7;
+            color: var(--accent);
             background: #e0f2fe;
             padding: 15px;
             border-radius: 50%;
         }
 
         .info-item h4 {
-            color: #1e293b;
+            color: var(--primary);
             font-size: 1.1rem;
         }
 
@@ -516,23 +707,14 @@
             gap: 15px;
         }
 
-        .contact-form input, .contact-form textarea {
+        .contact-form input, .contact-form select, .contact-form textarea {
             padding: 15px;
             border: 1px solid #cbd5e1;
             border-radius: 5px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .contact-form input:focus, .contact-form textarea:focus {
-            border-color: #0284c7;
-        }
-
-        .contact-form button {
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            background: var(--white);
+            color: var(--text-color);
         }
 
         /* Footer */
@@ -569,6 +751,9 @@
             .hero-content h1 {
                 font-size: 2rem;
             }
+            .discussions-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -577,14 +762,16 @@
     <!-- En-tête / Navigation -->
     <header>
         <div class="logo">
-            <i class="fa-solid fa-gears"></i> Apex <span>Maintenance & Tech</span>
+            <i class="fa-solid fa-gears"></i> Apex <span>Maintenance Numérique</span>
         </div>
         <nav id="navbar">
             <ul>
                 <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#services">Services & Détails</a></li>
+                <li><a href="#services">Services</a></li>
                 <li><a href="#videos">Vidéos</a></li>
                 <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#paiement">Paiement</a></li>
+                <li><a href="#discussions">Discussions</a></li>
                 <li><a href="#apropos">À Propos</a></li>
                 <li><a href="#contact" class="btn-nav">Contactez-nous</a></li>
             </ul>
@@ -597,8 +784,8 @@
     <!-- Section Accueil (Hero) -->
     <section id="accueil" class="hero">
         <div class="hero-content">
-            <h1>L'Alliance de la <span>Mécanique</span> et du <span>Numérique</span></h1>
-            <p>De la maintenance industrielle et des diagnostics automobiles aux systèmes informatiques : profitez d'une expertise technique globale pour vos équipements.</p>
+            <h1>Apex <span>Maintenance Numérique</span></h1>
+            <p>Maintenance, dépannage, sécurisation et optimisation de vos équipements informatiques et techniques pour les particuliers et les entreprises.</p>
             <div class="hero-buttons">
                 <a href="#contact" class="btn btn-primary">Demander un devis</a>
                 <a href="#services" class="btn btn-secondary">Découvrir nos services</a>
@@ -615,7 +802,7 @@
             <div class="service-card" onclick="openDetails('info-details')">
                 <i class="fa-solid fa-laptop-code"></i>
                 <h3>Informatique & Réseaux</h3>
-                <p>Maintenance de PC, éradication de virus, récupération de données, installation de réseaux Wi-Fi et optimisation de parcs informatiques.</p>
+                <p>Maintenance de PC, éradication de virus, récupération de données, installation de réseaux et optimisation de parcs informatiques.</p>
                 <span class="click-more"><i class="fa-solid fa-arrow-right"></i> Voir les détails & illustrations</span>
             </div>
 
@@ -636,17 +823,18 @@
             <div class="service-card" onclick="openDetails('dep-details')">
                 <i class="fa-solid fa-screwdriver-wrench"></i>
                 <h3>Dépannage & Réparation</h3>
-                <p>Une approche méthodique appliquée au diagnostic rigoureux de tout type de matériel ou machine.</p>
+                <p>Une approche méthodique héritée de la mécanique appliquée au diagnostic rigoureux de tout type de matériel ou machine.</p>
                 <span class="click-more"><i class="fa-solid fa-arrow-right"></i> Voir les détails & illustrations</span>
             </div>
         </div>
     </section>
 
-    <!-- Fenêtre modale des détails -->
-    <div id="details-container" class="details-section">
-        <div class="details-content">
+    <!-- Fenêtre modale unique pour les détails et les paiements -->
+    <div id="details-container" class="modal-overlay">
+        <div class="modal-content">
             <button class="close-btn" onclick="closeDetails()">&times;</button>
 
+            <!-- Contenus des Services -->
             <div id="info-details" class="detail-box">
                 <h2>Expertise : Informatique & Réseaux</h2>
                 <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=800&q=80" alt="Maintenance Informatique">
@@ -661,7 +849,7 @@
             <div id="auto-details" class="detail-box">
                 <h2>Expertise : Diagnostics Automobile</h2>
                 <img src="https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80" alt="Diagnostic Automobile">
-                <p>Grâce à notre solide expérience en mécanique, nous analysons avec précision les pannes électroniques et mécaniques de votre véhicule.</p>
+                <p>Grâce à notre solide expertise pratique, nous analysons avec précision les pannes électroniques et mécaniques de votre véhicule.</p>
                 <ul>
                     <li><strong>Passage à la Valise Diagnostic :</strong> Lecture et effacement des codes défauts du calculateur.</li>
                     <li><strong>Recherche de Pannes complexes :</strong> Problèmes de démarrage ou de capteurs électroniques.</li>
@@ -681,12 +869,15 @@
             <div id="dep-details" class="detail-box">
                 <h2>Expertise : Dépannage & Méthodologie</h2>
                 <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Méthodologie">
-                <p>La force d'Apex repose sur une méthode de travail rigoureuse axée sur l'analyse technique.</p>
+                <p>La force d'Apex repose sur une méthode de travail rigoureuse axée sur le terrain et la polyvalence.</p>
                 <ul>
                     <li><strong>Démarche Analytique :</strong> Isoler le problème étape par étape.</li>
                     <li><strong>Polyvalence :</strong> Intervention sur de la mécanique lourde ou de la micro-électronique.</li>
                 </ul>
             </div>
+
+            <!-- Contenu dynamique pour les Paiements Interactifs -->
+            <div id="modal-body-content" class="modal-body-content"></div>
         </div>
     </div>
 
@@ -711,35 +902,23 @@
         </div>
     </section>
 
-    <!-- Section Publicité / Espace Annonces -->
-    <section class="ads-section">
-        <div class="ads-banner">
-            <span class="ads-badge"><i class="fa-solid fa-bullhorn"></i> Offre & Annonce</span>
-            <h4>Besoin d'un design pro ou d'un flyer pour votre marque ?</h4>
-            <p>Profitez de nos services de création graphique et visuelle pour propulser vos projets à Dakar !</p>
-            <a href="#contact" class="btn btn-primary" style="margin-top: 10px;">Contactez-nous</a>
-        </div>
-    </section>
-
-    <!-- Section Tarifs Précisée -->
+    <!-- Section Tarifs -->
     <section id="tarifs" class="pricing">
         <h2>Nos Forfaits & Tarifs</h2>
-        <p class="section-subtitle">Des prix transparents et adaptés à vos besoins techniques.</p>
+        <p class="section-subtitle">Des prix transparents adaptés à vos besoins techniques.</p>
         
         <div class="pricing-grid">
-            <!-- Carte 1 -->
             <div class="pricing-card">
-                <h3>Essentiel / Diagnostic</h3>
+                <h3>Diagnostic / Essentiel</h3>
                 <p class="price">25 000 CFA</p>
                 <ul class="pricing-features">
                     <li><i class="fa-solid fa-check"></i> Diagnostic complet et repérage de panne</li>
                     <li><i class="fa-solid fa-check"></i> Nettoyage du système ou de l'équipement</li>
                     <li><i class="fa-solid fa-check"></i> Rapport de diagnostic détaillé</li>
                 </ul>
-                <a href="#contact" class="btn btn-secondary" style="border-color: #0284c7; color: #0284c7;">Choisir</a>
+                <a href="#contact" class="btn btn-secondary" style="border-color: var(--accent); color: var(--accent);">Choisir</a>
             </div>
 
-            <!-- Carte 2 : Populaire -->
             <div class="pricing-card popular">
                 <span class="badge">Populaire</span>
                 <h3>Intervention Pro</h3>
@@ -753,7 +932,6 @@
                 <a href="#contact" class="btn btn-primary">Choisir</a>
             </div>
 
-            <!-- Carte 3 -->
             <div class="pricing-card">
                 <h3>Industrie & Entreprise</h3>
                 <p class="price">Sur Devis</p>
@@ -762,7 +940,84 @@
                     <li><i class="fa-solid fa-check"></i> Maintenance préventive et curative</li>
                     <li><i class="fa-solid fa-check"></i> Contrat de suivi sur-mesure</li>
                 </ul>
-                <a href="#contact" class="btn btn-secondary" style="border-color: #0284c7; color: #0284c7;">Nous consulter</a>
+                <a href="#contact" class="btn btn-secondary" style="border-color: var(--accent); color: var(--accent);">Nous consulter</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Paiement / Modes de Règlement (Interactifs en Pop-up) -->
+    <section id="paiement" class="payment-section">
+        <h2>Modes de Paiement Acceptés</h2>
+        <p class="section-subtitle">Cliquez sur un mode de règlement pour effectuer ou simuler votre paiement sécurisé.</p>
+
+        <div class="payment-grid">
+            <div class="payment-card" onclick="openPaymentModal('orange')">
+                <i class="fa-solid fa-mobile-screen-button" style="color: #ff6600;"></i>
+                <h3>Orange Money</h3>
+                <p>Cliquez pour payer via Orange Money</p>
+            </div>
+
+            <div class="payment-card" onclick="openPaymentModal('wave')">
+                <i class="fa-solid fa-wallet" style="color: #00d2ff;"></i>
+                <h3>Wave</h3>
+                <p>Cliquez pour payer via Wave</p>
+            </div>
+
+            <div class="payment-card" onclick="openPaymentModal('paypal')">
+                <i class="fa-brands fa-paypal" style="color: #003087;"></i>
+                <h3>PayPal</h3>
+                <p>Cliquez pour payer via PayPal</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Publicité / Annonces -->
+    <section class="ads-section">
+        <div class="ads-banner">
+            <span class="ads-badge"><i class="fa-solid fa-bullhorn"></i> Offre & Annonce</span>
+            <h4>Besoin d'un design pro ou d'un flyer pour votre marque ?</h4>
+            <p>Profitez de nos services de création graphique et visuelle pour propulser vos projets à Dakar !</p>
+            <a href="#contact" class="btn btn-primary" style="margin-top: 10px;">Contactez-nous</a>
+        </div>
+    </section>
+
+    <!-- Section Discussions & Communauté -->
+    <section id="discussions" class="discussions-section">
+        <h2>Espace Discussions & Communauté</h2>
+        <p class="section-subtitle">Posez vos questions, partagez vos astuces ou échangez directement avec notre communauté.</p>
+
+        <div class="discussions-container">
+            <div class="discussion-form-box">
+                <h3>Participer à la discussion</h3>
+                <form onsubmit="event.preventDefault(); alert('Votre message a été publié dans le fil de discussion !'); this.reset();">
+                    <input type="text" placeholder="Votre Nom" required>
+                    <textarea rows="3" placeholder="Écrivez votre question ou votre réponse ici..." required></textarea>
+                    <button type="submit" class="btn btn-primary">Publier</button>
+                </form>
+            </div>
+
+            <div class="discussions-feed">
+                <div class="discussion-card">
+                    <div class="discussion-header">
+                        <span class="author"><i class="fa-solid fa-user-circle"></i> Mamadou Sarr</span>
+                        <span class="date">Il y a 2 heures</span>
+                    </div>
+                    <p class="discussion-text">Bonjour, mon PC portable chauffe anormalement quand je lance des logiciels lourds. Est-ce qu'un simple nettoyage suffit ou il faut changer la pâte thermique ?</p>
+                    <div class="discussion-replies">
+                        <div class="reply-item">
+                            <span class="reply-author"><i class="fa-solid fa-reply"></i> Apex Maintenance Numérique :</span>
+                            <p>Bonjour Mamadou ! Le plus souvent, un nettoyage complet combiné à un changement de pâte thermique règle le problème à 100%. N'hésite pas à passer à l'atelier pour un diagnostic !</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-card">
+                    <div class="discussion-header">
+                        <span class="author"><i class="fa-solid fa-user-circle"></i> Aminata Diallo</span>
+                        <span class="date">Il y a 1 jour</span>
+                    </div>
+                    <p class="discussion-text">Merci à l'équipe d'Apex Maintenance Numérique pour la rapidité de la réparation de mon disque dur. Service au top à Dakar ! 💻</p>
+                </div>
             </div>
         </div>
     </section>
@@ -771,12 +1026,12 @@
     <section id="apropos" class="about">
         <div class="about-container">
             <div class="about-text">
-                <h2>Mon Parcours : De la <span>Mécanique</span> au <span>Numérique</span></h2>
-                <p>Fort d'une solide expérience pratique dans le domaine de la mécanique, j'ai développé au fil des années un esprit rigoureux et une parfaite maîtrise de l'analyse et du diagnostic de pannes complexes.</p>
-                <p>Aujourd'hui, j'associe cette culture de la mécanique industrielle et automobile à une maîtrise approfondie de l'informatique pour comprendre vos équipements sous tous leurs angles.</p>
+                <h2>À Propos d'<span>Apex Maintenance Numérique</span></h2>
+                <p>Fort d'une solide expérience pratique sur le terrain, j'ai développé au fil des années un esprit rigoureux et une parfaite maîtrise de l'analyse et du diagnostic de pannes complexes.</p>
+                <p>Aujourd'hui, j'associe cette culture de la technique à une maîtrise approfondie de l'informatique pour comprendre vos équipements sous tous leurs angles.</p>
                 <ul>
-                    <li><i class="fa-solid fa-check"></i> Expérience confirmée en mécanique et maintenance</li>
-                    <li><i class="fa-solid fa-check"></i> Expert en diagnostics (Machines, Auto, Ordinateurs)</li>
+                    <li><i class="fa-solid fa-check"></i> Spécialiste en diagnostics et maintenance</li>
+                    <li><i class="fa-solid fa-check"></i> Expert en solutions informatiques et réseaux</li>
                 </ul>
             </div>
         </div>
@@ -815,6 +1070,12 @@
             <form class="contact-form" action="https://formspree.io/f/xgavelbj" method="POST">
                 <input type="text" name="nom" placeholder="Votre Nom complet" required>
                 <input type="email" name="email" placeholder="Votre Adresse Email" required>
+                <select name="mode_paiement">
+                    <option value="" disabled selected>Mode de paiement souhaité</option>
+                    <option value="Orange Money">Orange Money</option>
+                    <option value="Wave">Wave</option>
+                    <option value="PayPal">PayPal</option>
+                </select>
                 <textarea name="message" rows="5" placeholder="Décrivez votre problème ou besoin..." required></textarea>
                 <button type="submit" class="btn btn-primary">Envoyer le message</button>
             </form>
@@ -822,10 +1083,10 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Apex Maintenance & Tech. Tous droits réservés.</p>
+        <p>&copy; 2026 Apex Maintenance Numérique. Tous droits réservés.</p>
     </footer>
 
-    <!-- Scripts JavaScript -->
+    <!-- Scripts JavaScript interactifs -->
     <script>
         const mobileMenu = document.getElementById('mobile-menu');
         const navbar = document.querySelector('nav');
@@ -843,8 +1104,50 @@
         function openDetails(detailId) {
             const container = document.getElementById('details-container');
             const boxes = document.querySelectorAll('.detail-box');
+            const modalBody = document.getElementById('modal-body-content');
+            
+            modalBody.innerHTML = '';
             boxes.forEach(box => box.style.display = 'none');
             document.getElementById(detailId).style.display = 'block';
+            container.style.display = 'flex';
+        }
+
+        function openPaymentModal(type) {
+            const container = document.getElementById('details-container');
+            const boxes = document.querySelectorAll('.detail-box');
+            const modalBody = document.getElementById('modal-body-content');
+
+            boxes.forEach(box => box.style.display = 'none');
+
+            if(type === 'orange') {
+                modalBody.innerHTML = `
+                    <h2>Paiement via Orange Money</h2>
+                    <p>Effectuez votre transfert vers notre numéro marchand officiel :</p>
+                    <div class="pay-info-box"><strong>+221 78 465 27 71</strong></div>
+                    <p>Entrez votre numéro de téléphone pour validation :</p>
+                    <input type="text" placeholder="Ex: 77 123 45 67">
+                    <button onclick="alert('Demande de paiement Orange Money envoyée sur votre téléphone !'); closeDetails();" class="btn btn-primary" style="width:100%; background:#ff6600;">Valider le Paiement</button>
+                `;
+            } else if(type === 'wave') {
+                modalBody.innerHTML = `
+                    <h2>Paiement via Wave</h2>
+                    <p>Envoyez le montant directement sur notre compte Wave :</p>
+                    <div class="pay-info-box"><strong>+221 78 465 27 71</strong></div>
+                    <p>Entrez votre numéro Wave :</p>
+                    <input type="text" placeholder="Ex: 78 987 65 43">
+                    <button onclick="alert('Redirection vers l\'application Wave...'); closeDetails();" class="btn btn-primary" style="width:100%; background:#00d2ff; color:#0f172a;">Payer avec Wave</button>
+                `;
+            } else if(type === 'paypal') {
+                modalBody.innerHTML = `
+                    <h2>Paiement Sécurisé PayPal</h2>
+                    <p>Transférez les fonds en toute sécurité vers notre adresse email professionnelle :</p>
+                    <div class="pay-info-box"><strong>sonhiboundiaye222@gmail.com</strong></div>
+                    <p>Entrez votre montant ou identifiant PayPal :</p>
+                    <input type="email" placeholder="Votre email PayPal">
+                    <button onclick="alert('Connexion au portail de paiement PayPal sécurisé...'); closeDetails();" class="btn btn-primary" style="width:100%; background:#003087;">Procéder au Paiement PayPal</button>
+                `;
+            }
+
             container.style.display = 'flex';
         }
 
